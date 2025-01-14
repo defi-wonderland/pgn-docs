@@ -1,8 +1,11 @@
+import { Callout, Steps } from 'nextra/components'
+
 # Claiming tokens
 
 Search for your address in the [funds-proofs.txt](/funds-proofs.txt) file. Addresses are checksummed so you can use a tool like [Ethereum Address Checksum](https://ethsum.netlify.app/) to checksum your address.
 
 If you find your address in the file, you are eligible to claim your tokens by calling the `claim` function of the BalanceClaimer contract. 
+
 
 **Additionally**, you can use the `canClaim` read function to check if your proof is valid without actually claiming the tokens.
 
@@ -26,6 +29,96 @@ ethBalance: 12916782005508067201
 erc20Claim: [] // or if you have ERC20 balance [["0x6B175474A89094C44Da98b954EedeAC495271d0F", "465270000000000000000"]]
 ```
 
-The **recommended** way is to use the Etherscan interface to call the contract functions.
+<Callout type="info" emoji="ⓘ">
+    The **recommended** way is to use the Etherscan interface to call the contract functions.
 
-BalanceClaimerProxy contract can be found [here](https://etherscan.io/address/0x0ca4c7a370e0155c77a33e78443a54d749e0bc21#code)
+    The contract address is **0x0ca4c7a370e0155c77a33e78443a54d749e0bc21**
+
+    **BalanceClaimerProxy** contract can be found **[here](https://etherscan.io/address/0x0ca4c7a370e0155c77a33e78443a54d749e0bc21#code)**
+</Callout>
+
+
+## Steps to claim funds with Etherscan
+
+<Steps>
+### Step 1
+
+**(1)** Download and open the [funds-proofs.txt](/funds-proofs.txt) file for later use
+    - You can quickly search your address to check if you should follow the steps below to claim funds or not.
+    - If you can't find it, you don't have funds to claim.
+
+**(2)** Open the [Etherscan's **BalanceClaimerProxy** page](https://etherscan.io/address/0x0ca4c7a370e0155c77a33e78443a54d749e0bc21#code).
+
+### Step 2
+
+![Step 2](/claim-steps/steps-2.jpg)
+
+**(3)** Make sure you're on the Contract/code tab, if not, click on the Contract button in Etherscan.
+
+<Callout type="warning" emoji="⚠️">
+  Make sure the contract address is **0x0Ca4C7A370E0155c77a33e78443a54D749E0BC21**
+</Callout>
+
+### Step 3
+
+![Step 3](/claim-steps/steps-3.jpg)
+
+
+**(4)** Click on the [Read as Proxy](https://etherscan.io/address/0x0ca4c7a370e0155c77a33e78443a54d749e0bc21#readProxyContract) button
+
+**(5)** Connect your wallet to Etherscan.
+
+
+### Step 4
+
+![Step 4](/claim-steps/steps-4.jpg)
+
+**(6)** Click on the [canClaim](https://etherscan.io/address/0x0ca4c7a370e0155c77a33e78443a54d749e0bc21#readProxyContract#F4) function, this will allow you to enter your details and check before trying to claim funds
+
+### Data copy
+
+#### Copy your claim data as highlighted below for next steps
+
+![Step 5](/claim-steps/steps-txt-highlight.jpg)
+
+### Step 5
+
+![Step 5](/claim-steps/steps-5.jpg)
+
+<Callout type="info" emoji="ℹ️">
+  While this step is optional, we still recommend you follow through to make sure all data is copied correctly and will work when claiming your funds.
+</Callout>
+
+**(7)** Find your address in [funds-proofs.txt](/funds-proofs.txt) and fill in each input with your information.
+    - These are color coded in the image above to help with visual mapping
+    - Make sure to copy the data correctly.
+
+**(8)** Click the Query button to execute the `canClaim` function with your data
+    - It will return either `true` or `false`
+
+### Step 6
+
+![Step 6](/claim-steps/steps-6.jpg)
+
+
+**(9)** If you *can* claim funds (`true` response from previous step), you can now click on the [Write as Proxy](https://etherscan.io/address/0x0ca4c7a370e0155c77a33e78443a54d749e0bc21#writeProxyContract) button
+
+**(10)** Reconnect your wallet on this page
+
+### Step 7
+
+![Step 7](/claim-steps/steps-7.jpg)
+
+
+**(11)** Click on the [claim](https://etherscan.io/address/0x0ca4c7a370e0155c77a33e78443a54d749e0bc21#writeProxyContract#F1) function and fill in the same information from the previous `canClaim` function. Proof, address, ethBalance and erc20Balance.
+
+**(12)** Click the `Write` button.
+    - This will trigger a transaction with your wallet to claim your funds
+    - Check the tx information and if everything looks good, confirm your transaction.
+
+### Step 8
+
+<Callout type="info" emoji="✅">
+    Done! Once the transaction is confirmed, you should have your funds available in your address as soon as the transactions is processed.
+</Callout>
+</Steps>
